@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import throttle from 'lodash.throttle';
 
-import { API } from '../store/middlewares/apiService'
+import { API } from '../../store/middlewares/apiService'
 
-import Picture from '../components/Picture'
-import SelectedPicture from '../components/SelectedPicture'
-import PictureLoader from '../components/PictureLoader';
+import Picture from '../../components/Picture'
+import SelectedPicture from '../../components/SelectedPicture'
+import PictureLoader from '../../components/PictureLoader';
 
 const Container = styled.div`
   display: grid;
@@ -28,7 +28,7 @@ class PictureGrid extends Component {
     selectPicture: PropTypes.func.isRequired,
   };
 
-  componentWillMount() {
+  componentWillMount () {
     // Initial two calls to server
     this.props.fetchPictures()
     this.props.fetchPictures()
@@ -43,13 +43,14 @@ class PictureGrid extends Component {
   listenForScrollAndFetch = () => {
     window.addEventListener('scroll', (e) => {
       if (window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - window.innerHeight/0.5) {
+        document.documentElement.scrollHeight - window.innerHeight / 0.5) {
         this.lazyFetchPictures()
       }
     })
   }
 
   renderPictures = (pictures) => {
+
     const pictureLoaders = 5 // Number of loaders (blank images) at the end of the grid
     return [
       ...pictures.map(p => <Picture key={p.id} picture={p} handleClick={this.selectPicture} />),
@@ -73,7 +74,7 @@ class PictureGrid extends Component {
     this.props.selectPicture(picture)
   }
 
-  render() {
+  render () {
     const { pictures, selectedPicture } = this.props;
 
 
@@ -82,16 +83,19 @@ class PictureGrid extends Component {
         {pictures && this.renderPictures(pictures)}
         {selectedPicture &&
           <SelectedPicture selectedPicture={selectedPicture}
-          handleClick={this.selectPicture} />}
+            handleClick={this.selectPicture} />}
       </Container>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  pictures: state.pictures.pictureList,
-  selectedPicture: state.pictures.selectedPicture
-})
+const mapStateToProps = (state) => {
+
+  return {
+    pictures: state.pictures.pictureList,
+    selectedPicture: state.pictures.selectedPicture
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   fetchPictures: () => dispatch({

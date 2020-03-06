@@ -7,21 +7,29 @@ import { getAvailableSize } from '../../utils/pictures'
 
 export default class Picture extends Component {
   static propTypes = {
-    picture: PropTypes.object.isRequired,
+    picture: PropTypes.shape({
+      ownerInfo: PropTypes.shape({
+        profile: PropTypes.shape({
+          first_name: PropTypes.string,
+          last_name: PropTypes.string,
+          id: PropTypes.string
+        })
+      })
+    }),
     handleClick: PropTypes.func.isRequired
   };
 
-  render() {
-    const { picture, handleClick }                = this.props,
-          { first_name:name, last_name:surname,
-          id }                                    = picture.ownerInfo.profile
+  render () {
+    const { picture, handleClick } = this.props,
+      { first_name: name, last_name: surname,
+        id } = picture.ownerInfo.profile
 
     return (
       <div className="Picture" onClick={() => handleClick(picture)}>
-        <img src={getAvailableSize(picture)} alt={picture.title || 'Picture title'}/>
+        <img src={getAvailableSize(picture)} alt={picture.title || 'Picture title'} />
         <div className="Picture__img-mask">
           <h2 className="Picture__title">
-            {picture.title || 'Untitled'} <br/> <br/>
+            {picture.title || 'Untitled'} <br /> <br />
             <span>By {`${name || id} ${surname || ''}`}</span>
           </h2>
         </div>

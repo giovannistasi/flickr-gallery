@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import '@atlaskit/css-reset'
 import './App.css';
 
-import PictureGrid from './containers/PictureGrid.jsx'
+import PictureGrid from './containers/PictureGrid'
 import Header from './components/Header'
 import Spinner from './components/Spinner';
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <div className="App">
         <Header />
-        <PictureGrid/>
+        <PictureGrid />
         <Spinner />
       </div>
     );
