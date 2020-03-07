@@ -110,4 +110,17 @@ const mapDispatchToProps = dispatch => ({
   })
 })
 
+// const mapDispatchToProps = {
+//   fetchPictures, selectPicture
+// }
+
+// function fetchPictures() {
+//   return {
+//     type: 'FETCH_PICTURES',
+//     [API]: {
+//       path: '/pictures'
+//     }
+//   }
+// }
+
 export default connect(mapStateToProps, mapDispatchToProps)(PictureGrid)

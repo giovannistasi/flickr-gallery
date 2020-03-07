@@ -1,6 +1,7 @@
 const initialState = {
   pictureList: [],
-  selectedPicture: null
+  selectedPicture: null,
+  tags: []
 }
 
 // Discard fetched pics that are already in the store
@@ -15,15 +16,22 @@ const discardRepeatedPics = (baseArr, newArr) => {
 
 const pictures = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_PICTURES':
-      return state
+    // case 'FETCH_PICTURES':
+    //   return state
     case 'FETCH_PICTURES_SUCCESS':
-    
       return {
         ...state,
         pictureList: [
           ...state.pictureList,
           ...discardRepeatedPics(state.pictureList, action.data)
+        ]
+      };
+    case 'FETCH_TAGS_SUCCESS':
+      return {
+        ...state,
+        tags: [
+          ...state.tags,
+          ...action.data
         ]
       };
     case 'SELECT_PICTURE':
