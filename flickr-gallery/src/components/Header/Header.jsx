@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './styles.css'
+import { API } from '../../store/middlewares/apiService'
 
-export default class Header extends Component {
+
+class Header extends Component {
+
+  onChangeTag (value) {
+    console.log(value);
+  }
+
+  componentWillMount () {
+    this.props.fetchTags();
+    console.log(this.props.tags);
+  }
+  
   render() {
     return (
       <div className="Header">
@@ -14,14 +27,30 @@ export default class Header extends Component {
         <a href="https://redux.js.org/"> Redux</a>.
         Back end made with <a href="https://koajs.com/">Koa</a>.
         Content from <a href="https://www.flickr.com/services/api/">flickr API.</a></p>
-        <select id="categories">
-          <option value="" selected disabled hidden>Tags</option>
-          <option value="sunset">Sunset</option>
-          <option value="nature">Nature</option>
-          <option value="cars">Cars</option>
-          <option value="animals">Animals</option>
+        <select id="categories" onChange={(e) => this.onChangeTag(e.target.value)}>>
+          <option value="" defaultValue disabled hidden>Tags</option>
+          { this.props.tags && this.props.tags.map(tag => {
+            return <option value={tag._content}>{tag._content}</option>
+          })}
         </select>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    tags: state.pictures.tags,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchTags: () => dispatch({
+    type: 'FETCH_TAGS',
+    [API]: {
+      path: '/tags'
+    }
+  })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
