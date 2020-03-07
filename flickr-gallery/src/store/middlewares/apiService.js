@@ -1,7 +1,11 @@
 export const API = Symbol('API');
 
 export default baseURL => store => next => action => {
+  console.log('action', action);
+  
   if (action[API]) {
+    console.log('action[API]', action[API]);
+    
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -17,6 +21,8 @@ export default baseURL => store => next => action => {
           type: action.type + '_SUCCESS',
           data
         };
+        console.log('newaction[API]', newAction[API]);
+        
         delete newAction[API];
         store.dispatch(newAction);
       })

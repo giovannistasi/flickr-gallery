@@ -7,4 +7,6 @@ const controller = require('./controller');
 
 router.get('/pictures', controller.getPictures);
 
+router.get('/categories', controller.getPicturesFromTag)
+
 module.exports = router;
