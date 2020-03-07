@@ -1,5 +1,4 @@
 const controller = require('../../controller');
-const Context = require('koa');
 
 const ctx = {};
 describe('Fetch all photos', () => {
