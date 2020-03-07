@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, getByRole, fireEvent, waitForElement } from '@testing-library/react'
+import { render, fireEvent, waitForElement } from '@testing-library/react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux';
-import reducer from '../../store/reducers/index.js'
-import PictureGrid from './PictureGrid.jsx';
+import reducer from '../../../store/reducers/index.js'
+import PictureGrid from '../../../containers/PictureGrid/PictureGrid'
 
 const mockPicture = {
   title: 'ciao',
@@ -28,6 +28,7 @@ const mockPicture2 = {
   }
 }
 
+
 const pictures = [mockPicture, mockPicture2]
 const INITIAL_STATE = { pictures: { pictureList: pictures } }
 function renderWithRedux (
@@ -41,7 +42,7 @@ function renderWithRedux (
   }
 }
 
-describe("Button click", () => {
+describe('Picture on click', () => {
   it('loads selectedPicture on click', async () => {
     const { container } = renderWithRedux(
       <PictureGrid picture={mockPicture} />
@@ -51,3 +52,16 @@ describe("Button click", () => {
     expect(container.querySelector('.SelectedPicture__outer')).toBeTruthy();
   });
 });
+
+describe('Loading pictures on scroll', () => {
+  it('should only fetch on scroll', () => {
+    // scrollContainer.addEventListener('scroll', () => { /* some callback */ });
+    const { container } = renderWithRedux(
+      <PictureGrid picture={mockPicture} />
+    );
+    const mockScrollFetch = jest.fn(container.listenForScrollAndFetch)
+    console.log(mockScrollFetch);
+    fireEvent.scroll(container, { target: { scrollY: 1000 } });
+    expect(mockScrollFetch).toHaveBeenCalled();
+  });
+})

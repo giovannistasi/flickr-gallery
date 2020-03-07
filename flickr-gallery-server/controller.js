@@ -8,8 +8,8 @@ module.exports.getPictures = async (ctx) => {
   //  Recursively fetch to avoid flickr server errors
   let response;
   const recursiveGet = async () => {
-    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${apiKey}&per_page=30&format=json&nojsoncallback=1`)   
-    console.log('______________________________________________________________', pictureList); 
+    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${apiKey}&per_page=30&format=json&nojsoncallback=1`)
+    console.log('______________________________________________________________', pictureList);
     response = pictureList.data.photos.photo
     if (!response) recursiveGet()
   }
@@ -25,7 +25,8 @@ module.exports.getPictures = async (ctx) => {
     return {
       ...photo.data,
       ownerInfo: ownerInfo.data,
-      ...p}
+      ...p
+    }
   }))
   ctx.body = pictures
 }
@@ -36,7 +37,7 @@ module.exports.getPicturesFromTag = async (ctx) => {
   //  Recursively fetch to avoid flickr server errors
   let response;
   const recursiveGet = async () => {
-    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunset&sort=interestingness-desc&per_page=30&page=${pageNum}&format=json&nojsoncallback=1`)   
+    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunset&sort=interestingness-desc&per_page=30&page=${pageNum}&format=json&nojsoncallback=1`)
     response = pictureList.data.photos.photo
     if (!response) recursiveGet()
   }
@@ -51,7 +52,8 @@ module.exports.getPicturesFromTag = async (ctx) => {
     return {
       ...photo.data,
       ownerInfo: ownerInfo.data,
-      ...p}
+      ...p
+    }
   }))
   ctx.body = pictures
 }
