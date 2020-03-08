@@ -16,7 +16,7 @@ export default class SelectedPicture extends Component {
 
   toOwnerProfile = (owner) => `https://www.flickr.com/photos/${owner}`
 
-  render() {
+  render () {
 
     const { selectedPicture, handleClick }             = this.props,
           { ownerInfo, owner, id, title }              = selectedPicture,
