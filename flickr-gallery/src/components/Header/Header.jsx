@@ -6,17 +6,17 @@ import { API } from '../../store/middlewares/apiService'
 
 class Header extends Component {
 
-  onChangeTag (value) {
-    console.log(value);
-    this.props.fetchPicturesFromTag(value);
-    this.props.pictures.pictureList = this.props.picturesFromTag;
+  onChangeTag(tag) {
+    this.props.emptyCurrentPics();
+    if (tag === 'Recent') this.props.fetchPictures();
+    else this.props.fetchPicturesFromTag(tag, 1);
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.props.fetchTags();
     console.log(this.props.tags);
   }
-  
+
   render() {
     return (
       <div className="Header">
@@ -30,8 +30,8 @@ class Header extends Component {
         Back end made with <a href="https://koajs.com/">Koa</a>.
         Content from <a href="https://www.flickr.com/services/api/">flickr API.</a></p>
         <select id="categories" onChange={(e) => this.onChangeTag(e.target.value)}>>
-          <option value="" defaultValue disabled hidden>Tags</option>
-          { this.props.tags && this.props.tags.map(tag => {
+          <option value="Recent">Recent</option>
+          {this.props.tags && this.props.tags.map(tag => {
             return <option value={tag._content}>{tag._content}</option>
           })}
         </select>
@@ -49,18 +49,27 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  fetchPictures: () => dispatch({
+    type: 'FETCH_PICTURES',
+    [API]: {
+      path: '/pictures'
+    }
+  }),
   fetchTags: () => dispatch({
     type: 'FETCH_TAGS',
     [API]: {
       path: '/tags'
     }
   }),
-  fetchPicturesFromTag: (tag) => dispatch({
+  emptyCurrentPics: () => dispatch({
+    type: 'EMPTY_CURRENT_PICS'
+  }),
+  fetchPicturesFromTag: (tag, pageNum) => dispatch({
     type: 'FETCH_PICTURES_FROM_TAG',
     [API]: {
-      path: '/pictures-from-tags',
-      tag: tag
-    }
+      path: '/pictures-from-tags/:' + tag + '/:' + pageNum,
+    },
+    tag: tag
   })
 })
 

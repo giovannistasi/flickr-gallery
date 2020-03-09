@@ -2,6 +2,8 @@ const initialState = {
   pictureList: [],
   selectedPicture: null,
   tags: [],
+  selectedTag: null,
+  pageNum: 1,
   picturesFromTag: [],
 }
 
@@ -38,13 +40,22 @@ const pictures = (state = initialState, action) => {
       return {
         ...state,
         pictureList: [
-          ...action.data
-        ]
+          ...state.pictureList,
+          ...discardRepeatedPics(state.pictureList, action.data)
+        ],
+        selectedTag: action.tag
       }
     case 'SELECT_PICTURE':
       return {
         ...state,
         selectedPicture: action.data
+      }
+    case 'EMPTY_CURRENT_PICS':
+      return {
+        ...state,
+        pictureList: [],
+        pageNum: 1,
+        selectedTag: null
       }
     default:
       return state;
