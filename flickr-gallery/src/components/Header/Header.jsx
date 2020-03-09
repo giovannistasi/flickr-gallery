@@ -6,24 +6,29 @@ import { API } from '../../store/middlewares/apiService'
 
 class Header extends Component {
 
+  state = {
+    searchInput: ''
+  }
+
   onChangeTag (tag) {
     this.props.emptyCurrentPics();
     if (tag === 'Recent') this.props.fetchPictures();
     else this.props.fetchPicturesFromTag(tag, 1);
   }
 
-  onChangeSearch (search) {
-    this.props.emptyCurrentPics();
-    if (search === '') this.props.fetchPictures();
-    else {
-      this.props.fetchPicturesFromSearch(search, 1);
-    }
-  }
-
   componentWillMount () {
     this.props.fetchTags();
-    console.log(this.props.tags);
   }
+
+  submitForm = e => {
+    e.preventDefault();
+    this.props.emptyCurrentPics();
+    if (this.state.searchInput === '') return;
+    else {
+      this.props.fetchPicturesFromSearch(this.state.searchInput, 1);
+    }
+    this.state.searchInput = ''
+  };
 
   render () {
     return (
@@ -41,18 +46,26 @@ class Header extends Component {
         <select id="categories" onChange={(e) => this.onChangeTag(e.target.value)}>>
           <option className="options" value="Recent">recent</option>
           {this.props.tags && this.props.tags.map(tag => {
-<<<<<<< HEAD
-            return <option className="options" value={tag._content}>{tag._content}</option>
-=======
             return <option value={tag._content}>tag - {tag._content}</option>
->>>>>>> ec79eea157661581426379a10cad1c66218d25e2
           })}
         </select><br /><br />
-        <input type="text" placeholder="Search..." onChange={e => this.onChangeSearch(e.target.value)}></input>
+        <form onSubmit={this.submitForm}>
+          <div className="input-group">
+            <label>Search</label>
+            <input
+              type="text"
+              value={this.state.searchInput}
+              onChange={(e) => { this.setState({ searchInput: e.target.value }) }}
+              required
+            />
+          </div>
+          <button type="submit">search</button>
+        </form>
       </div>
     )
   }
 }
+
 
 const mapStateToProps = (state) => {
   return {
