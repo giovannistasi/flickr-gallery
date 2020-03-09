@@ -6,18 +6,18 @@ import { API } from '../../store/middlewares/apiService'
 
 class Header extends Component {
 
-  onChangeTag(tag) {
+  onChangeTag (tag) {
     this.props.emptyCurrentPics();
     if (tag === 'Recent') this.props.fetchPictures();
     else this.props.fetchPicturesFromTag(tag, 1);
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchTags();
     console.log(this.props.tags);
   }
 
-  render() {
+  render () {
     return (
       <div className="Header">
         <h1>flickr Gallery</h1>
@@ -30,9 +30,9 @@ class Header extends Component {
         Back end made with <a href="https://koajs.com/">Koa</a>.
         Content from <a href="https://www.flickr.com/services/api/">flickr API.</a></p>
         <select id="categories" onChange={(e) => this.onChangeTag(e.target.value)}>>
-          <option value="Recent">Recent</option>
+          <option className="options" value="Recent">recent</option>
           {this.props.tags && this.props.tags.map(tag => {
-            return <option value={tag._content}>{tag._content}</option>
+            return <option className="options" value={tag._content}>{tag._content}</option>
           })}
         </select>
       </div>

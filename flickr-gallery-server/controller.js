@@ -34,16 +34,12 @@ module.exports.getPictures = async (ctx) => {
 
 module.exports.getPicturesFromTag = async (ctx) => {
   console.log('new request is: ', ctx.params)
-  if (ctx.params.pageNum === ':1' ) {console.log(pageNum); pageNum = 0;}
+  if (ctx.params.pageNum === ':1') {console.log(pageNum); pageNum = 0;}
   pageNum++;
   //  Recursively fetch to avoid flickr server errors
   let response;
   const recursiveGet = async () => {
-<<<<<<< HEAD
-    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${ctx.params.tag}&sort=interestingness-desc&per_page=30&page=${pageNum}&format=json&nojsoncallback=1`)   
-=======
     let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunset&sort=interestingness-desc&per_page=30&page=${pageNum}&format=json&nojsoncallback=1`)
->>>>>>> 10437c535ff806d923ba2bbab04aec47c27763ef
     response = pictureList.data.photos.photo
     if (!response) recursiveGet()
   }
