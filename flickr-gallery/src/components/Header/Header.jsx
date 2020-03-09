@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './styles.css'
 import { API } from '../../store/middlewares/apiService'
+import throttle from 'lodash.throttle';
+
 
 
 class Header extends Component {
@@ -12,7 +14,7 @@ class Header extends Component {
     else this.props.fetchPicturesFromTag(tag, 1);
   }
 
-  onChangeSearch(search) {
+  onSearch(search) {
     this.props.emptyCurrentPics();
     if (search === '') this.props.fetchPictures();
     else {
@@ -22,7 +24,6 @@ class Header extends Component {
 
   componentWillMount() {
     this.props.fetchTags();
-    console.log(this.props.tags);
   }
 
   render() {
@@ -44,7 +45,8 @@ class Header extends Component {
             return <option value={tag._content}>tag - {tag._content}</option>
           })}
         </select><br /><br />
-        <input type="text" placeholder="Search..." onChange={e => this.onChangeSearch(e.target.value)}></input>
+        <input type="text" placeholder="Search..." value={this.props.searchValue}></input>
+        <button></button>
       </div>
     )
   }
