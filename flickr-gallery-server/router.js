@@ -13,4 +13,6 @@ router.get('/tags', controller.getTagsList);
 
 router.get('/pictures-from-tags/:tag/:pageNum', controller.getPicturesFromTag);
 
+router.get('/pictures-from-search/:search/:pageNum', controller.getPicturesFromSearch);
+
 module.exports = router;

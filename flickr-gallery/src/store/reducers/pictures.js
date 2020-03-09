@@ -3,6 +3,7 @@ const initialState = {
   selectedPicture: null,
   tags: [],
   selectedTag: null,
+  searchValue: null,
   pageNum: 1,
   picturesFromTag: [],
   loading: false
@@ -66,12 +67,28 @@ const pictures = (state = initialState, action) => {
         ...state,
         pictureList: [],
         pageNum: 1,
-        selectedTag: null
+        selectedTag: null,
+        searchValue: null
       }
     case 'INCREASE_PAGE_NUM':
       return {
         ...state,
         pageNum: state.pageNum + 1
+      }
+    case 'FETCH_PICTURES_FROM_SEARCH':
+      return {
+        ...state,
+        loading: true,
+        searchValue: action.searchValue || state.searchValue,
+      }
+    case 'FETCH_PICTURES_FROM_SEARCH_SUCCESS':
+      return {
+        ...state,
+        pictureList: [
+          ...state.pictureList,
+          ...discardRepeatedPics(state.pictureList, action.data)
+        ],
+        loading: false
       }
     default:
       return state;

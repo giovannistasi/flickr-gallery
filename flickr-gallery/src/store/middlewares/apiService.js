@@ -1,7 +1,7 @@
 export const API = Symbol('API');
 
 export default baseURL => store => next => action => {
-  
+
   if (action[API]) {
     const options = {
       headers: {
