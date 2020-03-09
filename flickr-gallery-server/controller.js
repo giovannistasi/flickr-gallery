@@ -6,7 +6,6 @@ let pageNum = 0;
 
 module.exports.getPictures = async (ctx) => {
   let tagsList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.tags.getHotList&api_key=${apiKey}&count=10&period=week&format=json&nojsoncallback=1`)   
-  console.log(tagsList.data.hottags.tag);
 
   //  Recursively fetch to avoid flickr server errors
   let response;
@@ -33,7 +32,7 @@ module.exports.getPictures = async (ctx) => {
 }
 
 module.exports.getPicturesFromTag = async (ctx) => {
-
+  console.log('new request is: ', ctx.req)
   pageNum++;
   //  Recursively fetch to avoid flickr server errors
   let response;
@@ -60,7 +59,6 @@ module.exports.getPicturesFromTag = async (ctx) => {
 
 module.exports.getTagsList = async (ctx) => {  
   let tagsList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.tags.getHotList&api_key=${apiKey}&count=10&period=week&format=json&nojsoncallback=1`);
-  console.log(tagsList);
 
   ctx.body = tagsList.data.hottags.tag;
 }

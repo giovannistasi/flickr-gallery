@@ -1,14 +1,14 @@
 const initialState = {
   pictureList: [],
   selectedPicture: null,
-  tags: []
+  tags: [],
+  picturesFromTag: [],
 }
 
 // Discard fetched pics that are already in the store
 const discardRepeatedPics = (baseArr, newArr) => {
   const res = [];
   newArr.forEach(newPic => {
-    
     if (baseArr.every(oldPic => newPic.id !== oldPic.id)) res.push(newPic)
   })
   return res
@@ -34,6 +34,13 @@ const pictures = (state = initialState, action) => {
           ...action.data
         ]
       };
+    case 'FETCH_PICTURES_FROM_TAG_SUCCESS':
+      return {
+        ...state,
+        pictureList: [
+          ...action.data
+        ]
+      }
     case 'SELECT_PICTURE':
       return {
         ...state,

@@ -8,6 +8,8 @@ class Header extends Component {
 
   onChangeTag (value) {
     console.log(value);
+    this.props.fetchPicturesFromTag(value);
+    this.props.pictures.pictureList = this.props.picturesFromTag;
   }
 
   componentWillMount () {
@@ -41,6 +43,8 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     tags: state.pictures.tags,
+    picturesFromTag: state.pictures.picturesFromTag,
+    pictures: state.pictures.pictureList,
   }
 }
 
@@ -49,6 +53,13 @@ const mapDispatchToProps = dispatch => ({
     type: 'FETCH_TAGS',
     [API]: {
       path: '/tags'
+    }
+  }),
+  fetchPicturesFromTag: (tag) => dispatch({
+    type: 'FETCH_PICTURES_FROM_TAG',
+    [API]: {
+      path: '/pictures-from-tags',
+      tag: tag
     }
   })
 })
