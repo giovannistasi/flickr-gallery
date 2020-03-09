@@ -30,7 +30,7 @@ class PictureGrid extends Component {
 
   pageNumber;
 
-  componentWillMount() {
+  componentWillMount () {
     // Initial two calls to server
     this.props.fetchPictures()
     this.props.fetchPictures()
@@ -85,7 +85,7 @@ class PictureGrid extends Component {
     this.props.selectPicture(picture)
   }
 
-  render() {
+  render () {
     const { pictures, selectedPicture } = this.props;
 
 

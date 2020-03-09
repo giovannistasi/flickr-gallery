@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Picture Grid loading should render selected picture correctly contain the the image, title and a link to the owner profile 1`] = `
+exports[`Picture Grid loading should render selected picture correctly 1`] = `
 <div
   class="SelectedPicture__outer"
 >

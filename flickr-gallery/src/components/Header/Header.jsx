@@ -8,7 +8,7 @@ import throttle from 'lodash.throttle';
 
 class Header extends Component {
 
-  onChangeTag(tag) {
+  onChangeTag (tag) {
     this.props.emptyCurrentPics();
     if (tag === 'Recent') this.props.fetchPictures();
     else this.props.fetchPicturesFromTag(tag, 1);
@@ -22,11 +22,11 @@ class Header extends Component {
     }
   }
 
-  componentWillMount() {
+  componentWillMount () {
     this.props.fetchTags();
   }
 
-  render() {
+  render () {
     return (
       <div className="Header">
         <h1>flickr Gallery</h1>
@@ -40,7 +40,7 @@ class Header extends Component {
         Content from <a href="https://www.flickr.com/services/api/">flickr API.</a></p>
         <br />
         <select id="categories" onChange={(e) => this.onChangeTag(e.target.value)}>>
-          <option value="Recent">Recent</option>
+          <option className="options" value="Recent">recent</option>
           {this.props.tags && this.props.tags.map(tag => {
             return <option value={tag._content}>tag - {tag._content}</option>
           })}
