@@ -5,6 +5,7 @@ const initialState = {
   selectedTag: null,
   pageNum: 1,
   picturesFromTag: [],
+  loading: false
 }
 
 // Discard fetched pics that are already in the store
@@ -18,24 +19,33 @@ const discardRepeatedPics = (baseArr, newArr) => {
 
 const pictures = (state = initialState, action) => {
   switch (action.type) {
-    // case 'FETCH_PICTURES':
-    //   return state
+    case 'FETCH_PICTURES':
+      return {
+        ...state,
+        loading: true
+      }
     case 'FETCH_PICTURES_SUCCESS':
       return {
         ...state,
         pictureList: [
           ...state.pictureList,
           ...discardRepeatedPics(state.pictureList, action.data)
-        ]
+        ],
+        loading: false
       };
     case 'FETCH_TAGS_SUCCESS':
       return {
         ...state,
         tags: [
           ...state.tags,
-          ...action.data
-        ]
+          ...action.data,
+        ],
       };
+    case 'FETCH_PICTURES_FROM_TAG':
+      return {
+        ...state,
+        loading: true
+      }
     case 'FETCH_PICTURES_FROM_TAG_SUCCESS':
       return {
         ...state,
@@ -43,7 +53,8 @@ const pictures = (state = initialState, action) => {
           ...state.pictureList,
           ...discardRepeatedPics(state.pictureList, action.data)
         ],
-        selectedTag: action.tag
+        selectedTag: action.tag || state.selectedTag,
+        loading: false
       }
     case 'SELECT_PICTURE':
       return {
@@ -56,6 +67,11 @@ const pictures = (state = initialState, action) => {
         pictureList: [],
         pageNum: 1,
         selectedTag: null
+      }
+    case 'INCREASE_PAGE_NUM':
+      return {
+        ...state,
+        pageNum: state.pageNum + 1
       }
     default:
       return state;

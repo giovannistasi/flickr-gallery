@@ -3,7 +3,6 @@ export const API = Symbol('API');
 export default baseURL => store => next => action => {
 
   if (action[API]) {
-    console.log('here');
     const options = {
       headers: {
         'Content-Type': 'application/json',
