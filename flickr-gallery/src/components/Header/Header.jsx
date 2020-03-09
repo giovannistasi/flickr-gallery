@@ -12,6 +12,14 @@ class Header extends Component {
     else this.props.fetchPicturesFromTag(tag, 1);
   }
 
+  onChangeSearch (search) {
+    this.props.emptyCurrentPics();
+    if (search === '') this.props.fetchPictures();
+    else {
+      this.props.fetchPicturesFromSearch(search, 1);
+    }
+  }
+
   componentWillMount () {
     this.props.fetchTags();
     console.log(this.props.tags);
@@ -29,12 +37,18 @@ class Header extends Component {
         <a href="https://redux.js.org/"> Redux</a>.
         Back end made with <a href="https://koajs.com/">Koa</a>.
         Content from <a href="https://www.flickr.com/services/api/">flickr API.</a></p>
+        <br />
         <select id="categories" onChange={(e) => this.onChangeTag(e.target.value)}>>
           <option className="options" value="Recent">recent</option>
           {this.props.tags && this.props.tags.map(tag => {
+<<<<<<< HEAD
             return <option className="options" value={tag._content}>{tag._content}</option>
+=======
+            return <option value={tag._content}>tag - {tag._content}</option>
+>>>>>>> ec79eea157661581426379a10cad1c66218d25e2
           })}
-        </select>
+        </select><br /><br />
+        <input type="text" placeholder="Search..." onChange={e => this.onChangeSearch(e.target.value)}></input>
       </div>
     )
   }
@@ -70,6 +84,13 @@ const mapDispatchToProps = dispatch => ({
       path: '/pictures-from-tags/:' + tag + '/:' + pageNum,
     },
     tag: tag
+  }),
+  fetchPicturesFromSearch: (search, pageNum) => dispatch({
+    type: 'FETCH_PICTURES_FROM_SEARCH',
+    [API]: {
+      path: '/pictures-from-search/:' + search + '/:' + pageNum,
+    },
+    searchValue: search
   })
 })
 

@@ -48,13 +48,12 @@ class PictureGrid extends Component {
         document.documentElement.scrollHeight - window.innerHeight / 0.5;
       if (!isLoading && scrollAfterTreshold) {
         if (this.props.selectedTag) {
-          // throttle(() => {
           this.props.fetchPicturesFromTag(this.props.selectedTag, this.props.pageNum)
           this.props.increasePageNum();
-          // }, 500
-          // )
+        } else if (this.props.searchValue) {
+          this.props.fetchPicturesFromSearch(this.props.searchValue, this.props.pageNum);
+          this.props.increasePageNum();
         } else {
-          console.log(this.props.selectedTag);
           this.lazyFetchPictures();
         }
       }
@@ -107,6 +106,7 @@ const mapStateToProps = (state) => {
     pictures: state.pictures.pictureList,
     selectedPicture: state.pictures.selectedPicture,
     selectedTag: state.pictures.selectedTag,
+    searchValue: state.pictures.searchValue,
     pageNum: state.pictures.pageNum,
     loading: state.pictures.loading
   }
@@ -131,20 +131,14 @@ const mapDispatchToProps = dispatch => ({
   }),
   increasePageNum: () => dispatch({
     type: 'INCREASE_PAGE_NUM'
+  }),
+  fetchPicturesFromSearch: (search, pageNum) => dispatch({
+    type: 'FETCH_PICTURES_FROM_SEARCH',
+    [API]: {
+      path: '/pictures-from-search/:' + search + '/:' + pageNum,
+    },
+    searchValue: search
   })
 })
-
-// const mapDispatchToProps = {
-//   fetchPictures, selectPicture
-// }
-
-// function fetchPictures() {
-//   return {
-//     type: 'FETCH_PICTURES',
-//     [API]: {
-//       path: '/pictures'
-//     }
-//   }
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureGrid)
