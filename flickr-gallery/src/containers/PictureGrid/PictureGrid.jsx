@@ -34,28 +34,29 @@ class PictureGrid extends Component {
     // Initial two calls to server
     this.props.fetchPictures()
     this.props.fetchPictures()
-    this.pageNumber = this.props.pageNum;
     //throttle method to avoid unnecesary calls to server
     this.lazyFetchPictures = throttle(this.props.fetchPictures, 500)
 
     this.listenForScrollAndFetch() // From this point on, only fetch on scroll
   }
 
-  // componentDidUpdate() {
-  //   this.pageNumber = this.props.pageNum;
-  // }
-
   // fetch new pictures when scrolled almost till the bottom
   listenForScrollAndFetch = () => {
     window.addEventListener('scroll', (e) => {
-      if (window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - window.innerHeight / 0.5) {
+      const isLoading = this.props.loading;
+      const scrollAfterTreshold = window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - window.innerHeight / 0.5; 
+      if (!isLoading && scrollAfterTreshold) {
         if (this.props.selectedTag) {
           // throttle(() => {
-            this.props.fetchPicturesFromTag(this.props.selectedTag, 0)
+            this.props.fetchPicturesFromTag(this.props.selectedTag, this.props.pageNum)
+            this.props.increasePageNum();
           // }, 500
           // )
-        } else this.lazyFetchPictures();
+        } else {
+          console.log(this.props.selectedTag);
+          this.lazyFetchPictures();
+        }
       }
     })
   }
@@ -106,7 +107,8 @@ const mapStateToProps = (state) => {
     pictures: state.pictures.pictureList,
     selectedPicture: state.pictures.selectedPicture,
     selectedTag: state.pictures.selectedTag,
-    pageNum: state.pictures.pageNum
+    pageNum: state.pictures.pageNum,
+    loading: state.pictures.loading
   }
 }
 
@@ -126,6 +128,9 @@ const mapDispatchToProps = dispatch => ({
     [API]: {
       path: '/pictures-from-tags/:' + tag + '/:' + pageNum,
     }
+  }),
+  increasePageNum: () => dispatch({
+    type: 'INCREASE_PAGE_NUM'
   })
 })
 

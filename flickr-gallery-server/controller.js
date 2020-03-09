@@ -2,11 +2,9 @@ require('dotenv').config()
 const axios = require('axios');
 
 const apiKey = process.env.FLICKR_KEY;
-let pageNum = 0;
+// let pageNum = 0;
 
 module.exports.getPictures = async (ctx) => {
-  let tagsList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.tags.getHotList&api_key=${apiKey}&count=10&period=week&format=json&nojsoncallback=1`)
-
   //  Recursively fetch to avoid flickr server errors
   let response;
   const recursiveGet = async () => {
@@ -33,17 +31,10 @@ module.exports.getPictures = async (ctx) => {
 }
 
 module.exports.getPicturesFromTag = async (ctx) => {
-  console.log('new request is: ', ctx.params)
-  if (ctx.params.pageNum === ':1' ) {console.log(pageNum); pageNum = 0;}
-  pageNum++;
-  //  Recursively fetch to avoid flickr server errors
+  let pageNum = parseInt(ctx.params.pageNum.slice(1));
   let response;
   const recursiveGet = async () => {
-<<<<<<< HEAD
-    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${ctx.params.tag}&sort=interestingness-desc&per_page=30&page=${pageNum}&format=json&nojsoncallback=1`)   
-=======
-    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunset&sort=interestingness-desc&per_page=30&page=${pageNum}&format=json&nojsoncallback=1`)
->>>>>>> 10437c535ff806d923ba2bbab04aec47c27763ef
+    let pictureList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${ctx.params.tag}&sort=interestingness-desc&per_page=10&page=${pageNum}&format=json&nojsoncallback=1`)   
     response = pictureList.data.photos.photo
     if (!response) recursiveGet()
   }
@@ -65,7 +56,7 @@ module.exports.getPicturesFromTag = async (ctx) => {
 }
 
 module.exports.getTagsList = async (ctx) => {
-  let tagsList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.tags.getHotList&api_key=${apiKey}&count=10&period=week&format=json&nojsoncallback=1`);
+  let tagsList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.tags.getHotList&api_key=${apiKey}&count=10&period=day&format=json&nojsoncallback=1`);
 
   ctx.body = tagsList.data.hottags.tag;
 }
