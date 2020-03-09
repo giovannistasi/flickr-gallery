@@ -1,7 +1,7 @@
 export const API = Symbol('API');
 
 export default baseURL => store => next => action => {
-  
+
   if (action[API]) {
     console.log('here');
     const options = {
@@ -9,11 +9,11 @@ export default baseURL => store => next => action => {
         'Content-Type': 'application/json',
       },
       'method': action[API].method,
-      'body': action[API].tag && JSON.stringify(action[API].tag)
+      'body': action[API].body && JSON.stringify(action[API].body)
     };
     fetch(`${baseURL}${action[API].path}`, options)
       .then(res => res.json())
-      .then(data => console.log(action[API]) || data)
+      .then(data => console.log(action[API].path, data) || data)
       .then(data => {
         const newAction = {
           ...action,
