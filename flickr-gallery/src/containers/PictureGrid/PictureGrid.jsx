@@ -28,23 +28,34 @@ class PictureGrid extends Component {
     selectPicture: PropTypes.func.isRequired,
   };
 
-  componentWillMount () {
+  pageNumber;
+
+  componentWillMount() {
     // Initial two calls to server
     this.props.fetchPictures()
     this.props.fetchPictures()
-
+    this.pageNumber = this.props.pageNum;
     //throttle method to avoid unnecesary calls to server
     this.lazyFetchPictures = throttle(this.props.fetchPictures, 500)
 
     this.listenForScrollAndFetch() // From this point on, only fetch on scroll
   }
 
+  // componentDidUpdate() {
+  //   this.pageNumber = this.props.pageNum;
+  // }
+
   // fetch new pictures when scrolled almost till the bottom
   listenForScrollAndFetch = () => {
     window.addEventListener('scroll', (e) => {
       if (window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - window.innerHeight / 0.5) {
-        this.lazyFetchPictures()
+        if (this.props.selectedTag) {
+          // throttle(() => {
+            this.props.fetchPicturesFromTag(this.props.selectedTag, 0)
+          // }, 500
+          // )
+        } else this.lazyFetchPictures();
       }
     })
   }
@@ -74,7 +85,7 @@ class PictureGrid extends Component {
     this.props.selectPicture(picture)
   }
 
-  render () {
+  render() {
     const { pictures, selectedPicture } = this.props;
 
 
@@ -93,7 +104,9 @@ const mapStateToProps = (state) => {
 
   return {
     pictures: state.pictures.pictureList,
-    selectedPicture: state.pictures.selectedPicture
+    selectedPicture: state.pictures.selectedPicture,
+    selectedTag: state.pictures.selectedTag,
+    pageNum: state.pictures.pageNum
   }
 }
 
@@ -107,6 +120,12 @@ const mapDispatchToProps = dispatch => ({
   selectPicture: (picture) => dispatch({
     type: 'SELECT_PICTURE',
     data: picture
+  }),
+  fetchPicturesFromTag: (tag, pageNum) => dispatch({
+    type: 'FETCH_PICTURES_FROM_TAG',
+    [API]: {
+      path: '/pictures-from-tags/:' + tag + '/:' + pageNum,
+    }
   })
 })
 
