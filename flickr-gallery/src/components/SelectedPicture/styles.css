@@ -1,5 +1,4 @@
 @import'../../sharedStyles.css';
-
 .SelectedPicture__outer {
   background-color: rgba(42, 54, 59, .2);
   opacity: 0;
@@ -49,38 +48,31 @@
   margin-bottom: 1vmin;
 }
 
-.SelectedPicture__inner-container a>h2,
-.SelectedPicture__inner-container h4>a {
+.SelectedPicture__inner-container a>h2, .SelectedPicture__inner-container h4>a {
   text-decoration: none;
   color: white;
 }
 
-.SelectedPicture__inner-container a>h2:hover,
-.SelectedPicture__inner-container h4>a:hover {
+.SelectedPicture__inner-container a>h2:hover, .SelectedPicture__inner-container h4>a:hover {
   color: rgba(254, 254, 254, 0.5);
   transition: color 0.3s ease;
 }
 
 @media only screen and (max-width: 1000px) {
-  .SelectedPicture__outer,
-  .SelectedPicture__outer:hover {
+  .SelectedPicture__outer, .SelectedPicture__outer:hover {
     background-color: rgba(42, 54, 59, .8);
     width: 100vw;
     height: 100vh;
     opacity: 1;
   }
-
-  .SelectedPicture__inner-container,
-  .SelectedPicture__inner-container:hover {
+  .SelectedPicture__inner-container, .SelectedPicture__inner-container:hover {
     background-color: rgba(42, 54, 59, .9);
     padding: 1vmin;
   }
-
   .SelectedPicture__inner-container img {
     width: 80vmin;
     height: auto;
   }
-
   .SelectedPicture__inner-container h1 {
     font-size: 7vmin;
   }

@@ -5,6 +5,7 @@
   "homepage": "http://jportella93.github.io/flickr-gallery",
   "dependencies": {
     "@atlaskit/css-reset": "^3.0.0",
+    "jest": "^25.1.0",
     "lodash.throttle": "^4.1.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
@@ -17,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --watch",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"

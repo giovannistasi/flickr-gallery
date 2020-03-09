@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Picture Grid loading should render selected picture correctly contain the the image, title and a link to the owner profile 1`] = `
+<div
+  class="SelectedPicture__outer"
+>
+  <div
+    class="SelectedPicture__inner-container"
+    alt="Open picture on Flickr"
+  >
+    <h1>
+      ciao
+    </h1>
+    <img
+      src="https://picsum.photos/300/?random"
+      alt="ciao"
+    />
+    <a
+      href="https://www.flickr.com/photos/undefined"
+      alt="Open user profile on Flickr"
+    >
+      <h2>
+        By 
+        Bob Stasi
+      </h2>
+    </a>
+  </div>
+</div>
+`;

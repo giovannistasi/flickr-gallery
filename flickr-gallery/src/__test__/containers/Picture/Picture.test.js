@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Picture from './Picture'
+import Picture from '../../../components/Picture/Picture';
+
 
 const handleClick = (e) => {
   console.log(e);

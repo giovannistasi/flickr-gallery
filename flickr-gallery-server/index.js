@@ -15,6 +15,8 @@ app
   .use(bodyParser())
   .use(router.routes());
 
-app.listen(PORT, console.log(`Koa server listening on port ${PORT}`))
+const server = app.listen(PORT, console.log(`Koa server listening on port ${PORT}`))
 
 app.on('error', err => console.error(err));
+
+module.exports = server
