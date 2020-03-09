@@ -30,7 +30,7 @@ class PictureGrid extends Component {
 
   pageNumber;
 
-  componentWillMount() {
+  componentWillMount () {
     // Initial two calls to server
     this.props.fetchPictures()
     this.props.fetchPictures()
@@ -45,12 +45,12 @@ class PictureGrid extends Component {
     window.addEventListener('scroll', (e) => {
       const isLoading = this.props.loading;
       const scrollAfterTreshold = window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - window.innerHeight / 0.5; 
+        document.documentElement.scrollHeight - window.innerHeight / 0.5;
       if (!isLoading && scrollAfterTreshold) {
         if (this.props.selectedTag) {
           // throttle(() => {
-            this.props.fetchPicturesFromTag(this.props.selectedTag, this.props.pageNum)
-            this.props.increasePageNum();
+          this.props.fetchPicturesFromTag(this.props.selectedTag, this.props.pageNum)
+          this.props.increasePageNum();
           // }, 500
           // )
         } else {
@@ -86,7 +86,7 @@ class PictureGrid extends Component {
     this.props.selectPicture(picture)
   }
 
-  render() {
+  render () {
     const { pictures, selectedPicture } = this.props;
 
 
