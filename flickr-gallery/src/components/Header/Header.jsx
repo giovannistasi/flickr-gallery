@@ -26,11 +26,7 @@ class Header extends Component {
     else {
       this.props.fetchPicturesFromSearch(this.state.searchInput, 1);
     }
-<<<<<<< HEAD
-    this.state.searchInput = ''
-=======
     this.setState({ searchInput: '' })
->>>>>>> master
   };
 
   render () {
@@ -46,24 +42,29 @@ class Header extends Component {
         Back end made with <a href="https://koajs.com/">Koa</a>.
         Content from <a href="https://www.flickr.com/services/api/">flickr API.</a></p>
         <br />
-        <select id="categories" onChange={(e) => this.onChangeTag(e.target.value)}>>
-          <option className="options" value="Recent">recent</option>
-          {this.props.tags && this.props.tags.map(tag => {
-            return <option value={tag._content}>tag - {tag._content}</option>
-          })}
-        </select><br /><br />
-        <form onSubmit={this.submitForm}>
-          <div className="input-group">
-            <label>Search</label>
+        <div className="tag-and-search">
+
+          <div>
+            <select className="input-group" onChange={(e) => this.onChangeTag(e.target.value)}>
+              <option value="" disabled selected>Select Tag</option>
+              <option className="options" value="Recent">recent</option>
+              {this.props.tags && this.props.tags.map(tag => {
+                return <option value={tag._content}>{tag._content}</option>
+              })}
+            </select>
+          </div>
+          <form onSubmit={this.submitForm}>
             <input
+              className="search"
+              placeholder="Search..."
               type="text"
               value={this.state.searchInput}
               onChange={(e) => { this.setState({ searchInput: e.target.value }) }}
               required
             />
-          </div>
-          <button type="submit">search</button>
-        </form>
+            <button type="submit" />
+          </form>
+        </div>
       </div>
     )
   }
