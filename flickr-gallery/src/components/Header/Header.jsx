@@ -1,8 +1,7 @@
+import './styles.css'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './styles.css'
-import { API } from '../../store/middlewares/apiService'
-
+import { fetchPictures, fetchPicturesFromTag, fetchPicturesFromSearch, fetchTags, emptyCurrentPics } from '../../store/actions/actions'
 
 class Header extends Component {
 
@@ -27,7 +26,11 @@ class Header extends Component {
     else {
       this.props.fetchPicturesFromSearch(this.state.searchInput, 1);
     }
+<<<<<<< HEAD
     this.state.searchInput = ''
+=======
+    this.setState({ searchInput: '' })
+>>>>>>> master
   };
 
   render () {
@@ -69,42 +72,18 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    tags: state.pictures.tags,
-    picturesFromTag: state.pictures.picturesFromTag,
     pictures: state.pictures.pictureList,
+    picturesFromTag: state.pictures.picturesFromTag,
+    tags: state.pictures.tags,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchPictures: () => dispatch({
-    type: 'FETCH_PICTURES',
-    [API]: {
-      path: '/pictures'
-    }
-  }),
-  fetchTags: () => dispatch({
-    type: 'FETCH_TAGS',
-    [API]: {
-      path: '/tags'
-    }
-  }),
-  emptyCurrentPics: () => dispatch({
-    type: 'EMPTY_CURRENT_PICS'
-  }),
-  fetchPicturesFromTag: (tag, pageNum) => dispatch({
-    type: 'FETCH_PICTURES_FROM_TAG',
-    [API]: {
-      path: '/pictures-from-tags/:' + tag + '/:' + pageNum,
-    },
-    tag: tag
-  }),
-  fetchPicturesFromSearch: (search, pageNum) => dispatch({
-    type: 'FETCH_PICTURES_FROM_SEARCH',
-    [API]: {
-      path: '/pictures-from-search/:' + search + '/:' + pageNum,
-    },
-    searchValue: search
-  })
+  emptyCurrentPics: () => dispatch(emptyCurrentPics()),
+  fetchPictures: () => dispatch(fetchPictures()),
+  fetchPicturesFromSearch: (search, pageNum) => dispatch(fetchPicturesFromSearch(search, pageNum)),
+  fetchPicturesFromTag: (tag, pageNum) => dispatch(fetchPicturesFromTag(tag, pageNum)),
+  fetchTags: () => dispatch(fetchTags())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
