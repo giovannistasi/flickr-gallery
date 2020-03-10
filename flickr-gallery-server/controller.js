@@ -80,9 +80,15 @@ module.exports.getPicturesFromSearch = async (ctx) => {
   ctx.body = pictures
 }
 
-
 module.exports.getTagsList = async (ctx) => {
   let tagsList = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.tags.getHotList&api_key=${apiKey}&count=10&period=day&format=json&nojsoncallback=1`);
 
   ctx.body = tagsList.data.hottags.tag;
+}
+
+module.exports.addFavorite = async (ctx) => {
+  console.log(ctx.request);
+  const response = await axios.post(`https://api.flickr.com/services/rest/?method=flickr.favorites.add&api_key=${apiKey}&photo_id=${ctx.body.id}&format=json&nojsoncallback=1`);
+
+  ctx.body = response;
 }
