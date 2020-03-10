@@ -74,11 +74,22 @@ describe('Picture Grid loading', () => {
   });
 
   it('should load more pictures on scroll', () => {
-    const { container } = renderWithRedux(
-      <PictureGrid picture={mockPicture} />
+    const API = Symbol('API');
+    const store = createStore(reducer)
+    const mockedDispatch = jest.fn()
+    store.dispatch = mockedDispatch
+    expect(mockedDispatch).not.toHaveBeenCalled();
+    renderWithRedux(
+      <PictureGrid picture={mockPicture} />, { store }
     );
-    const mockScrollFetch = jest.fn(container.listenForScrollAndFetch)
-    fireEvent.scroll(container, { target: { scrollY: 1000 } });
-    expect(mockScrollFetch);
+    fireEvent.scroll(global);
+    expect(mockedDispatch).toHaveBeenCalledTimes(3)
+    expect(mockedDispatch).toHaveBeenLastCalledWith({
+      type: 'FETCH_PICTURES',
+      [API]: {
+        path: '/pictures'
+      }
+    })
+
   });
 });
