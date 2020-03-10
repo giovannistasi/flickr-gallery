@@ -72,6 +72,8 @@ class Header extends Component {
 
 
 const mapStateToProps = (state) => {
+  console.log(state);
+
   return {
     pictures: state.pictures.pictureList,
     picturesFromTag: state.pictures.picturesFromTag,

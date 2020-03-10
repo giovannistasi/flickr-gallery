@@ -6,7 +6,7 @@ const initialState = {
   searchValue: null,
   pageNum: 1,
   picturesFromTag: [],
-  loading: false
+  loading: false,
 }
 
 // Discard fetched pics that are already in the store
