@@ -1,5 +1,21 @@
 import { API } from '../../store/middlewares/apiService'
 
+export const addToFavorites = (id) => ({
+  type: 'ADD_TO_FAVORITES',
+  [API]: {
+    path: '/favorites/:add',
+  },
+  id: id
+});
+
+export const removeFromFavorites = (id) => ({
+  type: 'REMOVE_FROM_FAVORITES',
+  [API]: {
+    path: '/favorites/:remove',
+  },
+  id: id
+});
+
 export const fetchPictures = () => ({
   type: 'FETCH_PICTURES',
   [API]: {
