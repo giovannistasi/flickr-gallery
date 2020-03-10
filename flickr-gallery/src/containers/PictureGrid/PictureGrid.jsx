@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import throttle from 'lodash.throttle';
+import { connect } from 'react-redux';
+import { fetchPictures, selectPicture, increasePageNum, fetchPicturesFromTag, fetchPicturesFromSearch } from '../../store/actions/actions'
 
-import { API } from '../../store/middlewares/apiService'
 
 import Picture from '../../components/Picture'
-import SelectedPicture from '../../components/SelectedPicture'
 import PictureLoader from '../../components/PictureLoader';
+import SelectedPicture from '../../components/SelectedPicture'
 
 const Container = styled.div`
   display: grid;
@@ -30,7 +30,7 @@ class PictureGrid extends Component {
 
   pageNumber;
 
-  componentWillMount() {
+  componentWillMount () {
     // Initial two calls to server
     this.props.fetchPictures()
     this.props.fetchPictures()
@@ -64,7 +64,7 @@ class PictureGrid extends Component {
 
     const pictureLoaders = 5 // Number of loaders (blank images) at the end of the grid
     return [
-      ...pictures.map(p => <Picture key={p.id} picture={p} handleClick={this.selectPicture} />),
+      ...pictures.map(p => <Picture key={p.id} picture={p} handleClick={this.props.selectPicture} />),
       this.renderPictureLoaders(pictureLoaders)
     ]
   }
@@ -85,7 +85,7 @@ class PictureGrid extends Component {
     this.props.selectPicture(picture)
   }
 
-  render() {
+  render () {
     const { pictures, selectedPicture } = this.props;
 
 
@@ -113,32 +113,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchPictures: () => dispatch({
-    type: 'FETCH_PICTURES',
-    [API]: {
-      path: '/pictures'
-    }
-  }),
-  selectPicture: (picture) => dispatch({
-    type: 'SELECT_PICTURE',
-    data: picture
-  }),
-  fetchPicturesFromTag: (tag, pageNum) => dispatch({
-    type: 'FETCH_PICTURES_FROM_TAG',
-    [API]: {
-      path: '/pictures-from-tags/:' + tag + '/:' + pageNum,
-    }
-  }),
-  increasePageNum: () => dispatch({
-    type: 'INCREASE_PAGE_NUM'
-  }),
-  fetchPicturesFromSearch: (search, pageNum) => dispatch({
-    type: 'FETCH_PICTURES_FROM_SEARCH',
-    [API]: {
-      path: '/pictures-from-search/:' + search + '/:' + pageNum,
-    },
-    searchValue: search
-  })
+  fetchPictures: () => dispatch(fetchPictures()),
+  selectPicture: (picture) => dispatch(selectPicture(picture)),
+  fetchPicturesFromTag: (tag, pageNum) => dispatch(fetchPicturesFromTag(tag, pageNum)),
+  increasePageNum: () => dispatch(increasePageNum()),
+  fetchPicturesFromSearch: (search, pageNum) => dispatch(fetchPicturesFromSearch(search, pageNum))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureGrid)

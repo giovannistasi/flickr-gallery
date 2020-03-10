@@ -11,7 +11,7 @@ const passport = require('passport')
   , FlickrStrategy = require('passport-flickr').Strategy;
 
 passport.use(new FlickrStrategy({
-  consumerKey: 'c2ab258da096d1f0f8fe6788b230ccbe',
+  consumerKey: process.env.FLICKR_KEY,
   consumerSecret: 'c85e7e225d9bfefd',
   callbackURL: "http://127.0.0.1:3000/auth/flickr/callback"
 },

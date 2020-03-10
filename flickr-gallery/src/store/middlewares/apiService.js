@@ -12,7 +12,7 @@ export default baseURL => store => next => action => {
     };
     fetch(`${baseURL}${action[API].path}`, options)
       .then(res => res.json())
-      .then(data => console.log(action[API]) || data)
+      .then(data => console.log(action[API].path, data) || data)
       .then(data => {
         const newAction = {
           ...action,

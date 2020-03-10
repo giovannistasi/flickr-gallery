@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watch --coverage",
     "start": "nodemon index.js"
   },
   "author": "",
@@ -25,5 +25,10 @@
     "jest": "^25.1.0",
     "nodemon": "^1.18.3",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**"
+    ]
   }
 }
