@@ -32,7 +32,8 @@ class Header extends Component {
   render () {
     return (
       <div className="Header">
-        <a href="http://localhost:8080/auth/flickr" ><img className="favorite" alt="" />LOGIN</a>
+        <a href="https://localhost:8080/auth/flickr" ><img className="favorite" alt="" />FLICKR</a>
+        <a href="https://localhost:8080/auth/google" ><img className="favorite" alt="" />GOOGLE</a>
         <h1>flickr Gallery</h1>
         <h3>Explore recent pictures uploaded to
         <a href="https://www.flickr.com/"> flickr</a>, <br />

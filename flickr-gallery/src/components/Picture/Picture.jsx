@@ -35,7 +35,6 @@ class Picture extends Component {
     const { picture, handleClick } = this.props,
       { first_name: name, last_name: surname,
         id } = picture.ownerInfo.profile
-    console.log(this.state);
 
     return (
 
@@ -50,8 +49,8 @@ class Picture extends Component {
           </div>
         </div>
         {
-          // this.props.favorited.includes(id) ? <a onClick={() => this.removeFromFavorites(id)}><img className="favorite" src={iconRed} alt="" /></a> :
-          <a href="http://localhost:8080/auth/flickr" ><img className="favorite" src={iconBlack} alt="" /></a>
+          this.props.favorited.includes(id) ? <a onClick={() => this.removeFromFavorites(id)}><img className="favorite" src={iconRed} alt="" /></a> :
+            <a href="http://localhost:8080/auth/flickr" ><img className="favorite" src={iconBlack} alt="" /></a>
         }
       </div>
     )
