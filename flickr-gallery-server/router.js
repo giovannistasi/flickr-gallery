@@ -2,9 +2,8 @@
 const Router = require('koa-router');
 const router = new Router();
 const controller = require('./controller');
-const flickrPassport = require('./authentication');
+const flickrPassport = require('./flickr');
 const googlePassport = require('./auth/google');
-
 
 
 router.get('/pictures', controller.getPictures);
@@ -16,14 +15,6 @@ router.get('/tags', controller.getTagsList);
 router.get('/pictures-from-tags/:tag/:pageNum', controller.getPicturesFromTag);
 
 router.get('/pictures-from-search/:search/:pageNum', controller.getPicturesFromSearch);
-
-// router.get('/login', () => {
-//   passport.authenticate('local', {
-//     successRedirect: '/app',
-//     failureRedirect: '/death'
-//   })
-// }
-// )
 
 router.get('/app', async (ctx) => {
   console.log('here');
@@ -55,15 +46,10 @@ router.get('/auth/flickr',
   // }
 );
 
-router.get('/auth/flickr/callback',
-  flickrPassport.authenticate('flickr', { failureRedirect: '/login' },
-    function (ctx) {
-      console.log("CTX", ctx)
-      ctx.redirect('/')
+router.get('/auth/flickr/callback', flickrPassport.authenticate('flickr', { successRedirect: "http://localhost:3000", failureRedirect: "/login" }), (ctx) => {
+  ctx.cookies.set('user', ctx.body)
+})
 
-    })
-
-);
 
 router.post('/favorites/:add', flickrPassport.authenticate('flickr'), function () {
   console.log(passport)

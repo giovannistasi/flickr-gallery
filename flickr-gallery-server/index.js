@@ -8,7 +8,7 @@ const router = require('./router');
 const https = require('https');
 const fs = require('fs')
 
-const passport = require('./authentication')
+const passport = require('./flickr')
 const session = require('koa-session');
 
 app.use(passport.initialize())
