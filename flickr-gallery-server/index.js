@@ -11,15 +11,17 @@ const fs = require('fs')
 const passport = require('./flickr')
 const session = require('koa-session');
 
+
+app.use(session(app))
 app.use(passport.initialize())
-app.use(session({ cookie: { secure: true } }, app))
+app.use(passport.session())
 app.keys = ['super-secret-key'];
 
 require('dotenv').config()
 const PORT = process.env.PORT || 8080
 
 app
-  .use(cors({ credentials: true }))
+  .use(cors({ credentials: true, origin: 'http://localhost:3000' }))
   .use(logger())
   .use(bodyParser())
   .use(router.routes())

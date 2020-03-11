@@ -5,7 +5,12 @@ const controller = require('./controller');
 const flickrPassport = require('./flickr');
 const googlePassport = require('./auth/google');
 
+const authenticationMiddleware = ctx => {
+  console.log(ctx.state.user, '----------------');
 
+
+
+}
 router.get('/pictures', controller.getPictures);
 
 router.get('/categories', controller.getPicturesFromTag);
@@ -46,9 +51,7 @@ router.get('/auth/flickr',
   // }
 );
 
-router.get('/auth/flickr/callback', flickrPassport.authenticate('flickr', { successRedirect: "http://localhost:3000", failureRedirect: "/login" }), (ctx) => {
-  ctx.cookies.set('user', ctx.body)
-})
+router.get('/auth/flickr/callback', flickrPassport.authenticate('flickr', { successRedirect: "http://localhost:3000", failureRedirect: "/login" }))
 
 
 router.post('/favorites/:add', flickrPassport.authenticate('flickr'), function () {

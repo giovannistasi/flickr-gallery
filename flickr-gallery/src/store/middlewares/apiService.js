@@ -6,7 +6,10 @@ export default baseURL => store => next => action => {
     const options = {
       headers: {
         'Content-Type': 'application/json',
+        "credentials": "include",
+
       },
+      "credentials": "include",
       'method': action[API].method,
       'body': action[API].body && JSON.stringify(action[API].body)
     };
