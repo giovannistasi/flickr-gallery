@@ -3,7 +3,7 @@ import { API } from '../../store/middlewares/apiService'
 export const addToFavorites = (id) => ({
   type: 'ADD_TO_FAVORITES',
   [API]: {
-    path: '/favorites/:add',
+    path: '/login',
   },
   id: id
 });

@@ -5,22 +5,16 @@ const logger = require('koa-logger');
 const bodyParser = require('koa-bodyparser');
 const cors = require('@koa/cors');
 const router = require('./router');
+const http = require('http');
+const https = require('https');
+
+const passport = require('./authentication')
 const session = require('koa-session');
 
-const passport = require('passport')
-  , FlickrStrategy = require('passport-flickr').Strategy;
 
-passport.use(new FlickrStrategy({
-  consumerKey: 'c2ab258da096d1f0f8fe6788b230ccbe',
-  consumerSecret: 'c85e7e225d9bfefd',
-  callbackURL: "http://127.0.0.1:3000/auth/flickr/callback"
-},
-  function (token, tokenSecret, profile, done) {
-    User.findOrCreate({ flickrId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
-));
+app.use(passport.initialize())
+app.use(session(app))
+app.keys = ['super-secret-key'];
 
 require('dotenv').config()
 const PORT = process.env.PORT || 8080
@@ -29,10 +23,10 @@ app
   .use(cors())
   .use(logger())
   .use(bodyParser())
-  .use(router.routes());
+  .use(router.routes())
 
 const server = app.listen(PORT, console.log(`Koa server listening on port ${PORT}`))
-
+// const server = https.createServer(app.callback()).listen(8080, () => console.log(`Koa server listening on port ${PORT}`))
 app.on('error', err => console.error(err));
 
 module.exports = server;
