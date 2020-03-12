@@ -87,8 +87,24 @@ module.exports.getTagsList = async (ctx) => {
 }
 
 module.exports.addFavorite = async (ctx) => {
-  console.log(ctx.request);
-  const response = await axios.post(`https://api.flickr.com/services/rest/?method=flickr.favorites.add&api_key=${apiKey}&photo_id=${ctx.body.id}&format=json&nojsoncallback=1`);
+  console.log('----------------------------------\n', ctx);
+  // const accessToken = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.auth.oauth.getAccessToken&api_key=${apiKey}`);
 
-  ctx.body = response;
+  // console.log(accessToken);
+
+
+
+  console.log(ctx.state)
+  // console.log(ctx.state.session.user)
+  const response = await axios.post(`https://api.flickr.com/services/rest/?method=flickr.favorites.add&api_key=${apiKey}&photo_id=${ctx.request.body.id}`);
+  // const options = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Authorization': 'hello'
+  //   }
+  // }
+  // axios(options)
+  // console.log(ctx.request.body.id);
+
+  ctx.status = 203;
 }

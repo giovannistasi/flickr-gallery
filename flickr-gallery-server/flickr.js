@@ -17,7 +17,8 @@ passport.use(new FlickrStrategy({
   callbackURL: "https://localhost:8080/auth/flickr/callback",
 },
   function (token, tokenSecret, profile, done) {
-    let user = { profile, token, tokenSecret }
+    const user = { profile, token, tokenSecret }
+    console.log(user.toAuthJSON());
 
     return done(null, user)
     // User.findOrCreate({ flickrId: profile.id }, function (err, user) {

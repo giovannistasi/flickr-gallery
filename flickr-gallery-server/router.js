@@ -54,9 +54,6 @@ router.get('/auth/flickr',
 router.get('/auth/flickr/callback', flickrPassport.authenticate('flickr', { successRedirect: "http://localhost:3000", failureRedirect: "/login" }))
 
 
-router.post('/favorites/:add', flickrPassport.authenticate('flickr'), function () {
-  console.log(passport)
-  return controller.addFavorite
-});
+router.post('/favorites/add', controller.addFavorite);
 
 module.exports = router;
