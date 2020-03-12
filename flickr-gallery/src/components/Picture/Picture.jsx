@@ -49,8 +49,8 @@ class Picture extends Component {
           </div>
         </div>
         {
-          this.props.favorited.includes(id) ? <a onClick={() => this.removeFromFavorites(id)}><img className="favorite" src={iconRed} alt="" /></a> :
-            <a href="http://localhost:8080/auth/flickr" ><img className="favorite" src={iconBlack} alt="" /></a>
+          this.props.favorited.includes(picture.id) ? <a onClick={() => this.removeFromFavorites(picture.id)}><img className="favorite" src={iconRed} alt="" /></a> :
+            <a onClick={() => this.addToFavorites(picture.id)} ><img className="favorite" src={iconBlack} alt="" /></a>
         }
       </div>
     )

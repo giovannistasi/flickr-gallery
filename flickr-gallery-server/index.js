@@ -14,7 +14,7 @@ const session = require('koa-session');
 
 app.use(session(app))
 app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.session())
 app.keys = ['super-secret-key'];
 
 require('dotenv').config()

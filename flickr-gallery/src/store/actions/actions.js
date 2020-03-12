@@ -1,11 +1,14 @@
 import { API } from '../../store/middlewares/apiService'
 
-export const addToFavorites = (id) => ({
+export const addToFavorites = (picId) => ({
   type: 'ADD_TO_FAVORITES',
   [API]: {
-    path: '/login',
+    path: '/favorites/add',
+    method: 'POST',
+    body: { id: picId }
+
   },
-  id: id
+  // id: id
 });
 
 export const removeFromFavorites = (id) => ({
@@ -45,7 +48,7 @@ export const fetchPicturesFromTag = (tag, pageNum) => ({
 export const fetchPicturesFromSearch = (search, pageNum) => ({
   type: 'FETCH_PICTURES_FROM_SEARCH',
   [API]: {
-    path: '/pictures-from-search/:' + search + '/:' + pageNum,
+    path: '/pictures-from-search/:' + search + '/:' + pageNum
   },
   searchValue: search
 });
