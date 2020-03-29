@@ -10,16 +10,14 @@
 
 ## Getting started
 
-**1.** Go to the [server](https://github.com/jportella93/flickr-gallery-server) and follow the getting started. Once you've got it running come back here.
-
-**2.** Clone the repo
+**1.** Clone the repo
 
 ````
 $ git clone https://github.com/jportella93/flickr-gallery.git
 $ cd flickr-gallery
 ````
 
-**3.** Install dependencies:
+**2.** Install dependencies:
 
 ```
 $ yarn install
@@ -29,9 +27,9 @@ or
 
     $ npm i
 
-**4.** Go to /src/config/api.config.js and make sure that line 1 (dev) is active and line 2 (prod) is commented out.
+**3.** Go to /src/config/api.config.js and make sure that line 1 (dev) is active and line 2 (prod) is commented out.
 
-**5.** Start the server
+**4.** Start the server
 
 ```
 $ yarn start
