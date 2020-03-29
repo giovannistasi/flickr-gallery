@@ -49,27 +49,14 @@ or
 
 * [Redux](https://github.com/reduxjs/redux) - Centralized state manager for React.
 
-  
 
+## Authors
 
-## Contributing
+Jon Portella - [Github](https://github.com/jportella93) 
 
-Any contribution is welcome! UI improvements, features... you name it! Just fork the repository and go nuts, then submit a pull request pointing to this repo.
+Giovanni Stasi - [Github](https://github.com/giovannistasi) 
 
-Some ideas that come to mind:
-  - Responsiveness: Make more mobile friendly.
-  - Feature: filter out dirty images.
-  - Feature: filter images by topic or category.
-
-... or any other idea!
-
-
-
-## Author
-
-Jon Portella - [Github](https://github.com/jportella93) - [LinkedIn](https://www.linkedin.com/in/jonportella/) - [Twitter](https://twitter.com/jportella93)
-
-
+Richard Perkins - [Github](https://github.com/rjperkins) 
 
 
 ## License
